@@ -1,20 +1,24 @@
 const express = require("express");
-const signUpTemplateCopy = require("../models/SignUpModels");
-
+const bodyParser = require("body-parser");
+const controller = require("../controllers/userController");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-router.post("/sign-up", (req, res) => {
-    const signUpUser = new signUpTemplateCopy({
-        fullName: req.body.fullName,
-        userName: req.body.userName,
-        email: req.body.email,
-        password: req.body.password
-    })
-    signUpUser.save().then(data => {
-        res.json(data)
-    }).catch(error => {
-        res.json(error)
-    })
-})
+router.use(bodyParser.urlencoded({ extended: false }));
+const jwtAuth = (req, res, next) => {
+  let token = req.headers.authorization;
+  token = token.split(" ")[1];
+  jwt.verify(token, process.env.SECRATE_KEY, function (err, decoded) {
+    if (err) {
+      res.send({ message: "Invalid token" });
+    } else {
+      next();
+    }
+  });
+};
+
+router.post("/sign-up", controller.createUser);
+router.post("/login", controller.login);
+router.get("/usersList", jwtAuth, controller.getUser);
 
 module.exports = router;
