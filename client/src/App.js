@@ -1,25 +1,19 @@
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
 import loadLanguage from "./slices/loadLanguage";
 import React, { Component } from 'react'
+import AppRouter from "./routing";
 
-class App extends Component {
+export class App extends Component {
   render() {
-    return (
-      <div>
-       <Navbar />
-      </div>
-    )
+    return <AppRouter/>
   }
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//     {loadLanguage()}
-//       <Navbar />
-//     </div>
-//   );
-// }
+App.initialize= (store, render) =>{
+  const promise = [loadLanguage()]
+  return Promise.all(promise).then(()=>{
+    render();
+  })
+}
 
 export default App;

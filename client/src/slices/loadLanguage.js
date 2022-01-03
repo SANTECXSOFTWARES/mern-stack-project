@@ -1,27 +1,20 @@
 import { setMessages } from "../util";
-import contentFile from "../resources/content/content.json";
 
-const loadLanguage = () => {
-  const url = contentFile;
-  const options = {
-    method: "GET",
-    credential: "include",
-  };
-  return fetch(url, options).then((response) => {
-    if (response.status !== 200) {
-      return;
-    }
-    return response
-      .json()
-      .then((json) => {
-        setMessages(json);
-        return json;
-      })
-      .catch((err) => {
-        console.log("Language error");
-        return err;
-      });
-  });
-};
+const loadLanguage = () =>{
+  return fetch('resources/content.json', {
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }
+
+  }).then(response =>{
+    return response.json().then(jsonData=>{
+      console.log("DATA ::",jsonData)
+    setMessages(jsonData)
+    })
+  }).catch(error=>{
+    return error
+  })
+}
 
 export default loadLanguage;

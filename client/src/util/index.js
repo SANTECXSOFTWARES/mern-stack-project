@@ -1,4 +1,3 @@
-"use strict";
 Object.defineProperty(exports, "__esModule", {
   value: true,
 });
@@ -7,7 +6,6 @@ exports.setMessages = setMessages;
 exports.translate = translate;
 
 let messages = {};
-// var EMPTY = Object.freeze({});
 
 function setMessages(json) {
   messages = json;
@@ -17,7 +15,6 @@ function setMessages(json) {
 }
 
 function translate(key) {
-    console.log("arguments ::",arguments.length > 1 && arguments[1] )
   var def = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : key;
   return messages[key] || def;
 }
