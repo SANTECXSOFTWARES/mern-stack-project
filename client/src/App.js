@@ -1,6 +1,5 @@
-import "./App.css";
-import loadLanguage from "./slices/loadLanguage";
 import React, { Component } from 'react'
+import loadLanguage from "./slices/loadLanguage";
 import AppRouter from "./routing";
 
 export class App extends Component {
