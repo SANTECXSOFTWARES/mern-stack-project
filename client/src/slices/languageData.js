@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { setMessages } from "../util";
+import { setMessages } from "../util/translator";
 
 const initialState = {
     loading : false,

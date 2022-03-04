@@ -1,2 +1,2 @@
-export const HOME_PAGE = "/";
-export const LOGIN = "/login"
+export const HOME_PAGE = "/dashboard";
+export const LOGIN = "/"

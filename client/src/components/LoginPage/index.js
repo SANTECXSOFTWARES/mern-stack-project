@@ -1,23 +1,20 @@
 import {
-  AppBar,
   Avatar,
   Button,
-  FormControl,
   Grid,
-  InputLabel,
   makeStyles,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Toolbar,
-  Typography,
+  Paper
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
-import { translate } from "../../util";
 import loginValidationSchema from "./validation";
+import Header from "../Header";
+import TextFieldWrapper from "../FormsUI/TextField";
+import SelectWrapper from "../FormsUI/Select";
+import { navigateToHomePage } from "../../routing/navigation";
+import optionListConvertor from "../../util/optionListConvertor";
+import translateOptions, { translate } from '../../util/translator'
 
 const useStyles = makeStyles((theme) => ({
   avatarStyle: { backgroundColor: theme.palette.primary.main },
@@ -30,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoginPage() {
-
+function LoginPage(props) {
+  const {history} = props;
   const initialValues = {
     username: "",
     password: "",
+    userType: "",
   };
 
   const onSubmit = (values, props) => {
@@ -43,16 +41,17 @@ function LoginPage() {
   };
 
   const classes = useStyles();
+  const userType = {
+    admin: "Admin",
+    faculty: "Faculty",
+    student: "Student",
+  };
 
   return (
     <Grid>
-      <AppBar>
-        <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 5 }}>
-            {translate("header")}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Grid item xs={12}>
+        <Header />
+      </Grid>
       <Paper elevation={3} variant="outlined" className={classes.paperStyle}>
         <Grid align="center">
           <Avatar className={classes.avatarStyle}>
@@ -65,60 +64,35 @@ function LoginPage() {
           onSubmit={onSubmit}
           validationSchema={loginValidationSchema}
         >
-          {({ errors, touched, isValid, dirty }) => (
+          {({ isValid, dirty }) => (
             <Form>
-              <Field
-                as={TextField}
-                variant="outlined"
-                label="User Name"
-                name="username"
-                placeholder="Enter user name"
-                fullWidth
-                error={Boolean(errors.username) && Boolean(touched.username)}
-                helperText={Boolean(touched.username) && errors.username}
-                margin="normal"
-              />
-              <Field
-                as={TextField}
-                variant="outlined"
-                label="Password"
-                name="password"
-                placeholder="Enter password"
-                type="password"
-                fullWidth
-                error={Boolean(errors.password) && Boolean(touched.password)}
-                helperText={Boolean(touched.password) && errors.password}
-              />
-              <Field
-                as={FormControl}
-                variant="outlined"
-                className={classes.formControl}
-                fullWidth
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Type of user
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  // value={age}
-                  // onChange={handleChange}
-                  label="Type of user"
-                >
-                  <MenuItem value={1}>Admin</MenuItem>
-                  <MenuItem value={2}>Faculty</MenuItem>
-                  <MenuItem value={3}>Student</MenuItem>
-                </Select>
-              </Field>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                disabled={!dirty || !isValid}
-              >
-                Login
-              </Button>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextFieldWrapper name="username" label="User Name" />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextFieldWrapper name="password" label="Password" type="password"/>
+                </Grid>
+                <Grid item xs={12}>
+                  <SelectWrapper
+                    name="userType"
+                    label="User type"
+                    options={translate("userType")}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    disabled={!dirty || !isValid}
+                    onClick={() => navigateToHomePage(history,)}
+                  >
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
             </Form>
           )}
         </Formik>

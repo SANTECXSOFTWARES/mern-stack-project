@@ -1,4 +1,4 @@
-import { setMessages } from "../util";
+import { setMessages } from "../util/translator";
 
 const loadLanguage = () =>{
   return fetch('resources/content.json', {
