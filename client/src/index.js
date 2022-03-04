@@ -6,7 +6,7 @@ import rootReducer from "./slices";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import theme from './util/theme'
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@material-ui/core";
 
 const store = configureStore({ reducer: rootReducer });
 

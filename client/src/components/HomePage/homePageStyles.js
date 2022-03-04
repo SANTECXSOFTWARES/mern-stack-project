@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import image from "../../assets/images/image-2.jpg";
 
 

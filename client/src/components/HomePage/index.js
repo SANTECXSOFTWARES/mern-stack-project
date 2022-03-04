@@ -7,8 +7,8 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import { translate } from "../../util/index";
 import { navigateToLoginPage } from "../../routing/navigation";
 import { useStyles } from "./homePageStyles";
