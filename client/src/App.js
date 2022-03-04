@@ -1,14 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import loadLanguage from "./slices/loadLanguage";
+import AppRouter from "./routing";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      <h1>School Management System</h1>
-      </header>
-    </div>
-  );
+export class App extends Component {
+  render() {
+    return <AppRouter/>
+  }
+}
+
+App.initialize= (store, render) =>{
+  const promise = [loadLanguage()]
+  return Promise.all(promise).then(()=>{
+    render();
+  })
 }
 
 export default App;
