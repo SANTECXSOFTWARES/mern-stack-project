@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LoginPage() {
-  const textFieldStyle = { margin: "10px 0" };
 
   const initialValues = {
     username: "",
