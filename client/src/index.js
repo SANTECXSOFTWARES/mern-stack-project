@@ -1,27 +1,31 @@
+/**
+=========================================================
+* Material Dashboard 2 React - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import rootReducer from "./slices";
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
-import theme from './util/theme'
-import { ThemeProvider } from "@material-ui/core";
 
-const store = configureStore({ reducer: rootReducer });
+// Material Dashboard 2 React Context Provider
+import { MaterialUIControllerProvider } from "context";
 
-store.subscribe(() => {
-  console.log("ENV...", process.env);
-});
-const render = (Root) => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-      <Root />
-      </ThemeProvider>
-    </Provider>,
-    document.getElementById("root")
-  );
-};
-
-App.initialize(store, () => render(App));
+ReactDOM.render(
+  <BrowserRouter>
+    <MaterialUIControllerProvider>
+      <App />
+    </MaterialUIControllerProvider>
+  </BrowserRouter>,
+  document.getElementById("root")
+);
