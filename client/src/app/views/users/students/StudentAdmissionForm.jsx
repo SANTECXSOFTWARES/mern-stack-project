@@ -23,11 +23,19 @@ import ButtonWrapper from 'app/components/FormUI/Button'
 import SendIcon from '@mui/icons-material/Send'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DateTimePicker from 'app/components/FormUI/DataTimePicker'
+import { translate } from '../../../utils/translator'
+import axios from 'axios'
 
 const StudentAdmissionForm = () => {
     // const [state, setState] = useState({
     //     date: new Date(),
     // })
+
+    useEffect(()=>{
+        axios.get("http://localhost:3001/student/list-students").then((response)=>{
+            console.log("Response ::", response)
+        });
+    }, [])
 
     const onSubmit = (values) => {
         console.log("submitted", values);
@@ -36,38 +44,40 @@ const StudentAdmissionForm = () => {
     const INITIAL_FORM_STATE = {
         firstName: '',
         lastName: '',
-        // email: '',
-        // phone: '',
-        // addressLine1: '',
-        // addressLine2: '',
-        // city: '',
-        // state: '',
-        // country: '',
-        // arrivealDate: '',
-        // departureDate: '',
-        // message: '',
-        // termsOfService: false,
+        class: '',
+        aadharNumber: '',
+        dob: '',
+        placeOfBirth: '',
+        state: '',
+        nationality: '',
+        religion: '',
+        gender: '',
+        caste: '',
+        address: '',
+        bloodGroup: '',
+        pinCode: '',
+        mobile: ''
     }
-
+    
     const FORM_VALIDATION = Yup.object().shape({
         firstName: Yup.string().required('Required'),
         lastName: Yup.string().required('Required'),
-        // email: Yup.string().email('Invalid email.').required('Required'),
-        // phone: Yup.number()
-        //     .integer()
-        //     .typeError('Please enter a valid phone number')
-        //     .required('Required'),
-        // addressLine1: Yup.string().required('Required'),
-        // addressLine2: Yup.string(),
-        // city: Yup.string().required('Required'),
-        // state: Yup.string().required('Required'),
-        // country: Yup.string().required('Required'),
-        // arrivealDate: Yup.date().required('Required'),
-        // departureDate: Yup.date().required('Required'),
-        // message: Yup.string(),
-        // termsOfService: Yup.boolean()
-        //     .oneOf([true], 'The terms and conditions must be accepted.')
-        //     .required('The terms and conditions must be accepted.'),
+        class: Yup.string().required('Required'),
+        aadharNumber: Yup.string().required('Required'),
+        dob: Yup.string().required('Required'),
+        placeOfBirth: Yup.string().required('Required'),
+        state: Yup.string().required('Required'),
+        nationality: Yup.string().required('Required'),
+        religion: Yup.string().required('Required'),
+        gender: Yup.string().required('Required'),
+        caste: Yup.date().required('Required'),
+        address: Yup.date().required('Required'),
+        bloodGroup: Yup.date().required('Required'),
+        pinCode: Yup.date().required('Required'),
+        mobile: Yup.number()
+            .integer()
+            .typeError('Please enter a valid phone number')
+            .required('Required'),
     })
 
     return (
@@ -177,7 +187,7 @@ const StudentAdmissionForm = () => {
                                     type="submit"
                                     endIcon={<SendIcon />}
                                 >
-                                    Submit
+                                SUBMIT
                                 </Button>
                             </Stack>
                         </Grid>

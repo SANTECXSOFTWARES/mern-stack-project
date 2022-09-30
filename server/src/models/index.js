@@ -9,17 +9,17 @@ const config = require(__dirname + '/../config/config');
 
 // const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
-console.log("config", config)
+console.log("config", config);
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, {
+// if (config.use_env_variable) {
+//   sequelize = new Sequelize(process.env[config.use_env_variable], config);
+// } else {
+const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, {
     dialect: 'mysql',
-    host: config.db.host
+    host: config.db.host,
+    logging: false
   });
-}
+// }
 
 fs
   .readdirSync(__dirname)

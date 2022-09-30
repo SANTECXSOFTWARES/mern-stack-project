@@ -1,20 +1,21 @@
-import { setMessages } from "../util/translator";
+import { setMessages } from "app/utils/translator"
 
-const loadLanguage = () =>{
-  return fetch('resources/content.json', {
-    headers : { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-     }
-
-  }).then(response =>{
-    return response.json().then(jsonData=>{
-      console.log("DATA ::",jsonData)
-    setMessages(jsonData)
+const loadLanguage = () => {
+    return fetch('./resources/content.json', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
     })
-  }).catch(error=>{
-    return error
-  })
+        .then((response) => {
+            return response.json().then((jsonData) => {
+                console.log('DATA ::', jsonData)
+                setMessages(jsonData)
+            })
+        })
+        .catch((error) => {
+            return error
+        })
 }
 
-export default loadLanguage;
+export default loadLanguage
