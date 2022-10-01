@@ -25,20 +25,27 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import DateTimePicker from 'app/components/FormUI/DataTimePicker'
 import { translate } from '../../../utils/translator'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { studentsSliceSelector } from 'app/slices/students'
 
 const StudentAdmissionForm = () => {
     // const [state, setState] = useState({
     //     date: new Date(),
     // })
+    const {students, loading} = useSelector(studentsSliceSelector);
+    console.log("Redux data ::", students, "Loading ::", loading)
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/student/list-students").then((response)=>{
-            console.log("Response ::", response)
-        });
+        // axios.get("http://localhost:3001/student/list-students").then((response)=>{
+        //     console.log("Response ::", response)
+        // });
     }, [])
 
     const onSubmit = (values) => {
         console.log("submitted", values);
+        axios.post("http://localhost:3001/student/add-student", values).then((response)=>{
+            console.log("Post Response ::", response)
+        });
     }
 
     const INITIAL_FORM_STATE = {
@@ -70,10 +77,10 @@ const StudentAdmissionForm = () => {
         nationality: Yup.string().required('Required'),
         religion: Yup.string().required('Required'),
         gender: Yup.string().required('Required'),
-        caste: Yup.date().required('Required'),
-        address: Yup.date().required('Required'),
-        bloodGroup: Yup.date().required('Required'),
-        pinCode: Yup.date().required('Required'),
+        caste: Yup.string().required('Required'),
+        address: Yup.string().required('Required'),
+        bloodGroup: Yup.string().required('Required'),
+        pinCode: Yup.string().required('Required'),
         mobile: Yup.number()
             .integer()
             .typeError('Please enter a valid phone number')
@@ -83,12 +90,15 @@ const StudentAdmissionForm = () => {
     return (
         <div>
             <Formik
-                initialValues={{ ...INITIAL_FORM_STATE }}
+                initialValues={students}
                 validationSchema={FORM_VALIDATION}
                 onSubmit={onSubmit}
             >
                 <Form>
-                    <Typography variant="h4" component="h2">STUDENT ADMISSION</Typography>
+                    <Typography variant="h4" component="h2">
+                        STUDENT ADMISSION
+                        {translate("student.admission.submit.button")}
+                        </Typography>
                     <Grid container spacing={2}>
                         <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 1 }}>
                             <TextfieldWrapper

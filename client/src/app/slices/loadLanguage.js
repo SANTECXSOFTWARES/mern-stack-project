@@ -1,7 +1,7 @@
 import { setMessages } from "app/utils/translator"
 
 const loadLanguage = () => {
-    return fetch('./resources/content.json', {
+    return fetch('http://localhost:3001/resources/language.json', {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

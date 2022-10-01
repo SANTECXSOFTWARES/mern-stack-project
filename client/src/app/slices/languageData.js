@@ -13,7 +13,7 @@ const initialState = {
 export const loadLanguage = createAsyncThunk(
     'languageData/loadLanguage',
     async () => {
-        return fetch('resources/content.json', {
+        return fetch('http://localhost:3001/resources/language.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
