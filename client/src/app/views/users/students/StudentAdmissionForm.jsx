@@ -23,62 +23,82 @@ import ButtonWrapper from 'app/components/FormUI/Button'
 import SendIcon from '@mui/icons-material/Send'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DateTimePicker from 'app/components/FormUI/DataTimePicker'
+import { translate } from '../../../utils/translator'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { studentsSliceSelector } from 'app/slices/students'
 
 const StudentAdmissionForm = () => {
     // const [state, setState] = useState({
     //     date: new Date(),
     // })
+    const {students, loading} = useSelector(studentsSliceSelector);
+    console.log("Redux data ::", students, "Loading ::", loading)
+
+    useEffect(()=>{
+        // axios.get("http://localhost:3001/student/list-students").then((response)=>{
+        //     console.log("Response ::", response)
+        // });
+    }, [])
 
     const onSubmit = (values) => {
         console.log("submitted", values);
+        axios.post("http://localhost:3001/student/add-student", values).then((response)=>{
+            console.log("Post Response ::", response)
+        });
     }
 
     const INITIAL_FORM_STATE = {
         firstName: '',
         lastName: '',
-        // email: '',
-        // phone: '',
-        // addressLine1: '',
-        // addressLine2: '',
-        // city: '',
-        // state: '',
-        // country: '',
-        // arrivealDate: '',
-        // departureDate: '',
-        // message: '',
-        // termsOfService: false,
+        class: '',
+        aadharNumber: '',
+        dob: '',
+        placeOfBirth: '',
+        state: '',
+        nationality: '',
+        religion: '',
+        gender: '',
+        caste: '',
+        address: '',
+        bloodGroup: '',
+        pinCode: '',
+        mobile: ''
     }
-
+    
     const FORM_VALIDATION = Yup.object().shape({
         firstName: Yup.string().required('Required'),
         lastName: Yup.string().required('Required'),
-        // email: Yup.string().email('Invalid email.').required('Required'),
-        // phone: Yup.number()
-        //     .integer()
-        //     .typeError('Please enter a valid phone number')
-        //     .required('Required'),
-        // addressLine1: Yup.string().required('Required'),
-        // addressLine2: Yup.string(),
-        // city: Yup.string().required('Required'),
-        // state: Yup.string().required('Required'),
-        // country: Yup.string().required('Required'),
-        // arrivealDate: Yup.date().required('Required'),
-        // departureDate: Yup.date().required('Required'),
-        // message: Yup.string(),
-        // termsOfService: Yup.boolean()
-        //     .oneOf([true], 'The terms and conditions must be accepted.')
-        //     .required('The terms and conditions must be accepted.'),
+        class: Yup.string().required('Required'),
+        aadharNumber: Yup.string().required('Required'),
+        dob: Yup.string().required('Required'),
+        placeOfBirth: Yup.string().required('Required'),
+        state: Yup.string().required('Required'),
+        nationality: Yup.string().required('Required'),
+        religion: Yup.string().required('Required'),
+        gender: Yup.string().required('Required'),
+        caste: Yup.string().required('Required'),
+        address: Yup.string().required('Required'),
+        bloodGroup: Yup.string().required('Required'),
+        pinCode: Yup.string().required('Required'),
+        mobile: Yup.number()
+            .integer()
+            .typeError('Please enter a valid phone number')
+            .required('Required'),
     })
 
     return (
         <div>
             <Formik
-                initialValues={{ ...INITIAL_FORM_STATE }}
+                initialValues={students}
                 validationSchema={FORM_VALIDATION}
                 onSubmit={onSubmit}
             >
                 <Form>
-                    <Typography variant="h4" component="h2">STUDENT ADMISSION</Typography>
+                    <Typography variant="h4" component="h2">
+                        STUDENT ADMISSION
+                        {translate("student.admission.submit.button")}
+                        </Typography>
                     <Grid container spacing={2}>
                         <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 1 }}>
                             <TextfieldWrapper
@@ -177,7 +197,7 @@ const StudentAdmissionForm = () => {
                                     type="submit"
                                     endIcon={<SendIcon />}
                                 >
-                                    Submit
+                                SUBMIT
                                 </Button>
                             </Stack>
                         </Grid>

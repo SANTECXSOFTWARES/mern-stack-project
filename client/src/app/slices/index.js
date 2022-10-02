@@ -1,9 +1,10 @@
-import {combineReducers} from 'redux'
-import languageDataReducer from './languageData';
-import darkModeReducer from './darkMode'
+import { combineReducers } from 'redux'
+import languageDataReducer from './languageData'
+import studentsReducer from './students'
+
 const rootReducer = combineReducers({
-languageData : languageDataReducer,
-darkMode : darkModeReducer
+    languageData: languageDataReducer,
+    students: studentsReducer
 })
 
-export default rootReducer;
+export default rootReducer

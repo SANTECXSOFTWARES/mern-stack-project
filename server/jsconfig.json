@@ -1,0 +1,13 @@
+{
+    "exclude": [
+        "node_module"
+    ],
+    "compilerOptions": {
+        "baseUrl": "src"
+        // "paths": {
+        //     "*": [
+        //         "public/src/*"
+        //     ]
+        // }
+    }
+}

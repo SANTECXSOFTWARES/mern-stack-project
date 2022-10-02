@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Students = sequelize.define("Students", {
-    firtsName: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     dob: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     placeOfBirth: {
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     mobile: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT(11),
       allowNull: false,
     },
   });
